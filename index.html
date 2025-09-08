@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do Manager</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    h2 { text-align: center; }
+    .task-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+    .task {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+      background: #eaeaea;
+      margin: 6px 0;
+      border-radius: 6px;
+    }
+    button {
+      margin-left: 5px;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .add-btn { background: #007bff; color: white; }
+    .edit-btn { background: #ffc107; }
+    .delete-btn { background: #dc3545; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📝 To-Do Manager</h2>
+    <input type="text" id="task-input" placeholder="Enter a task">
+    <button class="add-btn" onclick="addTask()">Add</button>
+    <ul class="task-list" id="task-list"></ul>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function renderTasks() {
+      const taskList = document.getElementById("task-list");
+      taskList.innerHTML = "";
+      tasks.forEach((task, index) => {
+        taskList.innerHTML += `
+          <li class="task">
+            <span>${task}</span>
+            <div>
+              <button class="edit-btn" onclick="editTask(${index})">Edit</button>
+              <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+            </div>
+          </li>`;
+      });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function addTask() {
+      const input = document.getElementById("task-input");
+      if (input.value.trim() !== "") {
+        tasks.push(input.value.trim());
+        input.value = "";
+        renderTasks();
+      }
+    }
+
+    function editTask(index) {
+      const newTask = prompt("Edit Task:", tasks[index]);
+      if (newTask) {
+        tasks[index] = newTask;
+        renderTasks();
+      }
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+
+    renderTasks();
+  </script>
+</body>
+</html>
