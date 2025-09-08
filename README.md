@@ -28,3 +28,7 @@ Update → Edit existing tasks
 
 Delete → Remove tasks
 
+Data persists in localStorage (tasks stay even after refreshing the page)
+
+Simple, responsive UI with styled buttons for each operation
+
