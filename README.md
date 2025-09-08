@@ -9,9 +9,9 @@ Uses localStorage (browser storage) as a lightweight database
 
 # How to Run
 
-Save the code as todo.html
+Save the code as index.html
 
-Open todo.html in any web browser
+Open index.html in any web browser
 
 Manage tasks (add, edit, delete)
 
